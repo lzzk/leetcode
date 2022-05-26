@@ -46,8 +46,8 @@ public:
     //
     //  1) Traverse the array one by one
     //  2) just put the `target - num[i]`(not `num[i]`) into the map
-    //     so, when we checking the next num[i], if we found it is exisited in the map.
-    //     which means we found the second one.
+    //     so, when we checking the next num[i], if we found it existed in the map,
+    //     it means we found the second one.
     //      
     vector<int> twoSum(vector<int> &numbers, int target) {
         unordered_map<int, int> m;
@@ -55,13 +55,28 @@ public:
         for(int i=0; i<numbers.size(); i++){
             // not found the second one
             if (m.find(numbers[i])==m.end() ) { 
-                // store the first one poisition into the second one's key
+                // store the first one position into the second one's key
                 m[target - numbers[i]] = i; 
             }else { 
                 // found the second one
                 result.push_back(m[numbers[i]]+1);
                 result.push_back(i+1);
                 break;
+            }
+        }
+        return result;
+    }
+
+    // we also can store nums[i] into map, and find target - nums[i]
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> m;
+        vector<int> result;
+        for (int i=0; i<nums.size(); i++) {
+            if ( m.find(target - nums[i]) == m.end() ) {
+                m[nums[i]] = i;
+            }else{
+                result.push_back(m[target - nums[i]]);
+                result.push_back(i);
             }
         }
         return result;
